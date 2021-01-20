@@ -78,7 +78,7 @@ public class Animation implements PaintListener {
         g.drawImage(foregroundBuffer, 0, 0, observer);
 
         for (AnimationListener l : listeners) {
-            l.draw(drawableBuffer);
+            l.drawFrame(drawableBuffer);
         }
 
         currentFrame.getAndIncrement();

@@ -1,19 +1,16 @@
 import animation.Animation;
 import animation.AnimationListener;
 import animation.ShapeTest;
-import dibujante.Dibujante;
-import matrix.*;
-import timer.PaintListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Transformaciones extends JFrame implements AnimationListener {
+public class MainWindow extends JFrame implements AnimationListener {
 
     protected Animation shapes;
 
-    public Transformaciones() {
+    public MainWindow() {
         super("Transformaciones");
         this.setSize(800, 600);
         this.setResizable(false);
@@ -37,11 +34,11 @@ public class Transformaciones extends JFrame implements AnimationListener {
     }
 
     public static void main(String[] args) {
-        new Transformaciones();
+        new MainWindow();
     }
 
     @Override
-    public void draw(BufferedImage frame) {
+    public void drawFrame(BufferedImage frame) {
         getGraphics().drawImage(frame, 0, 0, this);
     }
 }
