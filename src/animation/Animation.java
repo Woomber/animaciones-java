@@ -90,6 +90,11 @@ public class Animation implements PaintListener {
         timer.start();
     }
 
+    public void setFrameAsBackground(BufferedImage image) {
+        this.backgroundBuffer.createGraphics();
+        this.backgroundBuffer.getGraphics().drawImage(image, 0, 0, observer);
+    }
+
     @Override
     public void drawPolygons(List<Polygon> polygons, int order) {
         while(currentFrame.get() < order);

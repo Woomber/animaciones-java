@@ -1,5 +1,7 @@
-package animation;
+package animation.scenes;
 
+import animation.Animation;
+import animation.Polygon;
 import matrix.Coordenadas2D;
 import matrix.Matriz;
 import matrix.MatrizRotacion;
@@ -84,12 +86,12 @@ public class EarthRotation extends Animation {
             crateres[2][i] = new Coordenadas2D(MOON_RADIUS/3.5 * Math.cos(i*8 * DEG_TO_RAD) - 2, MOON_RADIUS/3.5 * Math.sin(i*8 * DEG_TO_RAD) + 20);
         }
 
-        timer.addPolygon(new Polygon(moon, new Color(90, 90, 90), new Color(200, 200, 200)));
+        timer.addPolygon(new animation.Polygon(moon, new Color(90, 90, 90), new Color(200, 200, 200)));
         for(int i = 0; i < crateres.length; i++) {
             timer.addPolygon(new Polygon(crateres[i], new Color(110, 110, 110), new Color(100, 100,100)));
         }
 
-        timer.addOperation(new MatrizTraslacion(175, 175));
+        timer.addOperation(new MatrizTraslacion(250, 0));
 
         Matriz R = new MatrizRotacion(2, true);
 

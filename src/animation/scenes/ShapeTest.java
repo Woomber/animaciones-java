@@ -1,5 +1,7 @@
-package animation;
+package animation.scenes;
 
+import animation.Animation;
+import animation.Polygon;
 import matrix.Coordenadas2D;
 import matrix.MatrizEscalado;
 import matrix.MatrizRotacion;

@@ -1,7 +1,6 @@
-import animation.Animation;
-import animation.AnimationListener;
-import animation.EarthRotation;
-import animation.ShapeTest;
+import animation.*;
+import animation.scenes.EarthRotation;
+import animation.scenes.RocketLaunch;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +9,7 @@ import java.awt.image.BufferedImage;
 public class MainWindow extends JFrame implements AnimationListener {
 
     protected Animation earth;
+    protected Animation rocket;
 
     public MainWindow() {
         super("Transformaciones");
@@ -20,18 +20,21 @@ public class MainWindow extends JFrame implements AnimationListener {
         earth = new EarthRotation(getWidth(), getHeight(), this);
         earth.addAnimationListener(this);
 
+        rocket = new RocketLaunch(getWidth(), getHeight(), this);
+        rocket.addAnimationListener(this);
+
         this.setVisible(true);
     }
 
-    protected synchronized void startAnimation() {
+    protected synchronized void startAnimation(Animation animation) {
         try {
-            earth.animate();
+            animation.animate();
         } catch (IllegalThreadStateException ignored) {}
     }
 
     @Override
     public void paint(Graphics g) {
-        startAnimation();
+        startAnimation(earth);
     }
 
     public static void main(String[] args) {
@@ -46,6 +49,9 @@ public class MainWindow extends JFrame implements AnimationListener {
     @Override
     public void animationFinished(Object sender, BufferedImage lastFrame) {
         if(sender.equals(earth)) {
+            rocket.setFrameAsBackground(lastFrame);
+            startAnimation(rocket);
+        } else if(sender.equals(rocket)) {
             System.out.println("Finalizado");
         }
     }
