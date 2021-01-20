@@ -11,12 +11,14 @@ import java.awt.image.ImageObserver;
 public class ShapeTest extends Animation {
 
     public ShapeTest(int width, int height, ImageObserver observer) {
-        super(new Coordenadas2D[] {
+        super(width, height, observer);
+
+        timer.addPolygon(new Polygon(new Coordenadas2D[] {
                 new Coordenadas2D(0, 90),
                 new Coordenadas2D(-40, 0),
                 new Coordenadas2D(0, -90),
                 new Coordenadas2D(40, 0),
-        }, width, height, observer);
+        }, Color.BLACK, Color.RED));
 
         setDelay(50);
         setOrigin(new Coordenadas2D(width/2, height/2));

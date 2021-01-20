@@ -91,7 +91,7 @@ public class Matriz {
     public String toString() {
         String data = "";
         for(int i = 0; i < width; i++) {
-            data += "{ ";
+            data += "\t{ ";
             for(int j = 0; j < height - 1; j++) {
                 data += datos[i][j] + ", ";
             }

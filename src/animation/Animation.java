@@ -27,8 +27,8 @@ public class Animation implements PaintListener {
 
     protected AtomicInteger currentFrame;
 
-    public Animation(Coordenadas2D[] figura, int width, int height, ImageObserver observer) {
-        this.timer = new MovementTimer(figura);
+    public Animation(int width, int height, ImageObserver observer) {
+        this.timer = new MovementTimer();
         this.timer.addPaintListener(this);
         this.listeners = new ArrayList<>();
         this.observer = observer;
@@ -73,16 +73,16 @@ public class Animation implements PaintListener {
         listeners.add(listener);
     }
 
-    public void sendFrame() {
+    protected void drawFrame() {
         Graphics g = drawableBuffer.getGraphics();
         g.drawImage(backgroundBuffer, 0, 0, observer);
         g.drawImage(foregroundBuffer, 0, 0, observer);
+    }
 
+    public void sendFrame() {
         for (AnimationListener l : listeners) {
             l.drawFrame(drawableBuffer);
         }
-
-        currentFrame.getAndIncrement();
     }
 
     public synchronized void animate() throws IllegalThreadStateException {
@@ -91,10 +91,25 @@ public class Animation implements PaintListener {
     }
 
     @Override
-    public void drawPolygon(Coordenadas2D[] polygon, int order) {
+    public void drawPolygons(List<Polygon> polygons, int order) {
         while(currentFrame.get() < order);
         foregroundBuffer = foreground.resetBuffer(drawableBuffer.getWidth(), drawableBuffer.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        foreground.drawAndFillPolygon(polygon, color);
+        for (Polygon polygon : polygons) {
+            foreground.setColor(polygon.getBorderColor());
+            foreground.drawAndFillPolygon(polygon.getPath(), polygon.getFillColor());
+        }
+        drawFrame();
         sendFrame();
+        postFrameOperations();
+        currentFrame.getAndIncrement();
+    }
+
+    protected void postFrameOperations() { }
+
+    @Override
+    public void finished(Object sender) {
+        for(AnimationListener l: listeners) {
+            l.animationFinished(this, drawableBuffer);
+        }
     }
 }

@@ -1,15 +1,17 @@
 package timer;
 
+import animation.Polygon;
 import matrix.Coordenadas2D;
 import matrix.Matriz;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class MovementTimer extends Thread {
 
-    protected final Coordenadas2D[] figuraInicial;
+    protected final List<Polygon> polygons;
     protected final List<Matriz> operations;
 
     protected List<PaintListener> listeners;
@@ -17,12 +19,12 @@ public class MovementTimer extends Thread {
     protected int delay = 150;
     protected int initialDelay = 0;
 
-    public MovementTimer(Coordenadas2D[] figuraInicial) {
-        this(figuraInicial, new Matriz[0]);
+    public MovementTimer() {
+        this(new Matriz[0]);
     }
 
-    public MovementTimer(Coordenadas2D[] figuraInicial, Matriz[] operations) {
-        this.figuraInicial = figuraInicial;
+    public MovementTimer(Matriz[] operations) {
+        this.polygons = new ArrayList<>();
         this.operations = new ArrayList<>();
         this.listeners = new ArrayList<>();
         Collections.addAll(this.operations, operations);
@@ -44,34 +46,49 @@ public class MovementTimer extends Thread {
         operations.add(op);
     }
 
-    protected void drawPolygon(Coordenadas2D[] polygon, int order) {
+    public void addPolygon(Polygon polygon) {
+        polygons.add(polygon);
+    }
+
+    protected void drawPolygon(List<Polygon> polygons, int order) {
         for (PaintListener l: listeners) {
-            l.drawPolygon(polygon, order);
+            l.drawPolygons(polygons, order);
+        }
+    }
+
+    protected void finished() {
+        for(PaintListener l: listeners) {
+            l.finished(this);
         }
     }
 
     @Override
     public void run() {
         try {
-            Coordenadas2D[] figuraPrima = new Coordenadas2D[figuraInicial.length];
-            int order = 0;
+            List<Polygon> figurasPrimas = new ArrayList<>();
 
-            for (int i = 0; i < figuraInicial.length; i++) {
-                figuraPrima[i] = new Coordenadas2D(figuraInicial[i]);
-            }
+            int order = 0;
 
             sleep(initialDelay);
 
-            drawPolygon(figuraPrima, order++);
+            for (Polygon figura : polygons) {
+                Polygon copia = new Polygon(figura);
+                figurasPrimas.add(copia);
+            }
+            drawPolygon(figurasPrimas, order++);
 
 
             for (Matriz op : operations) {
-                for(int i = 0; i < figuraPrima.length; i++) {
-                    figuraPrima[i] = new Coordenadas2D(figuraPrima[i].product(op));
+                for(Polygon figura: figurasPrimas) {
+                    for(int i = 0; i < figura.getPath().length; i++) {
+                        figura.getPath()[i] = new Coordenadas2D(figura.getPath()[i].product(op));
+                    }
                 }
                 sleep(delay);
-                drawPolygon(figuraPrima, order++);
+                drawPolygon(figurasPrimas, order++);
             }
+
+            finished();
 
         } catch (Exception ex) {
             ex.printStackTrace();

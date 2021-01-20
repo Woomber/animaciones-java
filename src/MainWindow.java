@@ -15,6 +15,7 @@ public class MainWindow extends JFrame implements AnimationListener {
         super("Transformaciones");
         this.setSize(800, 600);
         this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         earth = new EarthRotation(getWidth(), getHeight(), this);
         earth.addAnimationListener(this);
@@ -40,5 +41,12 @@ public class MainWindow extends JFrame implements AnimationListener {
     @Override
     public void drawFrame(BufferedImage frame) {
         getGraphics().drawImage(frame, 0, 0, this);
+    }
+
+    @Override
+    public void animationFinished(Object sender, BufferedImage lastFrame) {
+        if(sender.equals(earth)) {
+            System.out.println("Finalizado");
+        }
     }
 }

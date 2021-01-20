@@ -1,7 +1,10 @@
 package timer;
 
-import matrix.Coordenadas2D;
+import animation.Polygon;
+
+import java.util.List;
 
 public interface PaintListener {
-    void drawPolygon(Coordenadas2D[] polygon, int order);
+    void drawPolygons(List<Polygon> polygon, int order);
+    void finished(Object sender);
 }
