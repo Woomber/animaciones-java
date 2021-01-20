@@ -272,6 +272,7 @@ public class Dibujante {
         );
     }
 
+    @Deprecated
     public void drawCircleRoot(int xc, int yc, int radius) {
         for (int x = xc - radius; x <= xc + radius; x++) {
             int yDiff = (int) Math.round(Math.sqrt(radius * radius - (x - xc) * (x - xc)));

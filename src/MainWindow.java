@@ -1,5 +1,6 @@
 import animation.Animation;
 import animation.AnimationListener;
+import animation.EarthRotation;
 import animation.ShapeTest;
 
 import javax.swing.*;
@@ -8,23 +9,22 @@ import java.awt.image.BufferedImage;
 
 public class MainWindow extends JFrame implements AnimationListener {
 
-    protected Animation shapes;
+    protected Animation earth;
 
     public MainWindow() {
         super("Transformaciones");
         this.setSize(800, 600);
         this.setResizable(false);
 
-        shapes = new ShapeTest(getWidth(), getHeight(), this);
-        shapes.setFillColor(Color.RED);
-        shapes.addAnimationListener(this);
+        earth = new EarthRotation(getWidth(), getHeight(), this);
+        earth.addAnimationListener(this);
 
         this.setVisible(true);
     }
 
     protected synchronized void startAnimation() {
         try {
-            shapes.animate();
+            earth.animate();
         } catch (IllegalThreadStateException ignored) {}
     }
 

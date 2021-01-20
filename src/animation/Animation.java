@@ -45,6 +45,7 @@ public class Animation implements PaintListener {
     }
 
     public void setOrigin(Coordenadas2D origin) {
+        background.setOrigin(origin.getIntX(), origin.getIntY());
         foreground.setOrigin(origin.getIntX(), origin.getIntY());
     }
 
