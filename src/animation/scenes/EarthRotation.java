@@ -65,25 +65,33 @@ public class EarthRotation extends Animation {
                 new Coordenadas2D[45],
         };
 
+        Matriz start = new MatrizTraslacion(250, 0);
+
         for(int i = 0; i < 180; i++) {
-            moon[i] = new Coordenadas2D(MOON_RADIUS * Math.cos(i*2 * LandscapeBuilder.DEG_TO_RAD), MOON_RADIUS * Math.sin(i*2 * LandscapeBuilder.DEG_TO_RAD));
+            moon[i] = new Coordenadas2D(
+                    new Coordenadas2D(MOON_RADIUS * Math.cos(i*2 * LandscapeBuilder.DEG_TO_RAD), MOON_RADIUS * Math.sin(i*2 * LandscapeBuilder.DEG_TO_RAD)).product(start)
+            );
         }
         for(int i = 0; i < 45; i++) {
-            crateres[0][i] = new Coordenadas2D(MOON_RADIUS/4 * Math.cos(i*8 * LandscapeBuilder.DEG_TO_RAD) - 10, MOON_RADIUS/4 * Math.sin(i*8 * LandscapeBuilder.DEG_TO_RAD) - 10);
+            crateres[0][i] = new Coordenadas2D(
+                    new Coordenadas2D(MOON_RADIUS/4 * Math.cos(i*8 * LandscapeBuilder.DEG_TO_RAD) - 10, MOON_RADIUS/4 * Math.sin(i*8 * LandscapeBuilder.DEG_TO_RAD) - 10).product(start)
+            );
         }
         for(int i = 0; i < 45; i++) {
-            crateres[1][i] = new Coordenadas2D(MOON_RADIUS/3.2 * Math.cos(i*8 * LandscapeBuilder.DEG_TO_RAD) + 18, MOON_RADIUS/3.2 * Math.sin(i*8 * LandscapeBuilder.DEG_TO_RAD) + 0);
+            crateres[1][i] = new Coordenadas2D(
+                    new Coordenadas2D(MOON_RADIUS/3.2 * Math.cos(i*8 * LandscapeBuilder.DEG_TO_RAD) + 18, MOON_RADIUS/3.2 * Math.sin(i*8 * LandscapeBuilder.DEG_TO_RAD) + 0).product(start)
+            );
         }
         for(int i = 0; i < 45; i++) {
-            crateres[2][i] = new Coordenadas2D(MOON_RADIUS/3.5 * Math.cos(i*8 * LandscapeBuilder.DEG_TO_RAD) - 2, MOON_RADIUS/3.5 * Math.sin(i*8 * LandscapeBuilder.DEG_TO_RAD) + 20);
+            crateres[2][i] = new Coordenadas2D(
+                    new Coordenadas2D(MOON_RADIUS/3.5 * Math.cos(i*8 * LandscapeBuilder.DEG_TO_RAD) - 2, MOON_RADIUS/3.5 * Math.sin(i*8 * LandscapeBuilder.DEG_TO_RAD) + 20).product(start)
+            );
         }
 
         timer.addPolygon(new animation.Polygon(moon, new Color(90, 90, 90), new Color(200, 200, 200)));
         for(int i = 0; i < crateres.length; i++) {
             timer.addPolygon(new Polygon(crateres[i], new Color(110, 110, 110), new Color(100, 100,100)));
         }
-
-        timer.addOperation(new MatrizTraslacion(250, 0));
 
         Matriz R = new MatrizRotacion(2, true);
 

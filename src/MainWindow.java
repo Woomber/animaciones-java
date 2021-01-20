@@ -16,7 +16,7 @@ public class MainWindow extends JFrame implements AnimationListener {
     protected Animation arrival;
 
     public MainWindow() {
-        super("Transformaciones");
+        super("Proyecto Animación 2D - Yael Chavoya");
         this.setSize(800, 600);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,8 +44,8 @@ public class MainWindow extends JFrame implements AnimationListener {
 
     @Override
     public void paint(Graphics g) {
-        //startAnimation(earth);
-        startAnimation(vivo);
+        startAnimation(earth);
+        //startAnimation(vivo);
     }
 
     public static void main(String[] args) {

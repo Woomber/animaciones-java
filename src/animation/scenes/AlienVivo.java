@@ -17,6 +17,7 @@ public class AlienVivo extends Animation {
         super(width, height, observer);
 
         setDelay(30);
+        setInitialDelay(1400);
         setOrigin(new Coordenadas2D(width/2, height/2));
 
         setupBackground();

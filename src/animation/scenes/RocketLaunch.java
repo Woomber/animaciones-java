@@ -66,9 +66,9 @@ public class RocketLaunch extends Animation {
             timer.addOperation(new MatrizEscalado(1.02));
         }
         for(int i = 0; i < 58; i++) {
-            timer.addOperation(new MatrizTraslacion(-0.3, 3.1));
+            timer.addOperation(new MatrizTraslacion(-0.5, 3.6));
             timer.addOperation(new MatrizRotacion(0.15, true));
-            timer.addOperation(new MatrizEscalado(0.995));
+            timer.addOperation(new MatrizEscalado(0.99));
         }
     }
 }
