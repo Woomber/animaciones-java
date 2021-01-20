@@ -282,12 +282,20 @@ public class Dibujante {
     }
 
     public void drawCircle(int xc, int yc, int radius) {
-        for (double t = 0;  t < 360; t += 0.25) {
+        double delta = 0.25;
+        if(radius > 300) delta = 0.05;
+
+        for (double t = 0;  t < 360; t += delta) {
             int x = xc + (int) (radius * Math.cos(degToRad(t)));
             int y = yc + (int) (radius * Math.sin(degToRad(t)));
 
             setPixel(x,y);
         }
+    }
+
+    public void fillCircle(int xc, int yc, int radius){
+        drawCircle(xc, yc, radius);
+        fill(xc, yc);
     }
 
     public void drawEllipse(int xc, int yc, int radiusX, int radiusY) {
@@ -297,6 +305,11 @@ public class Dibujante {
 
             setPixel(x,y);
         }
+    }
+
+    public void fillEllipse(int xc, int yc, int radiusX, int radiusY) {
+        drawEllipse(xc, yc, radiusX, radiusY);
+        fill(xc, yc);
     }
 
     public void drawPolygon(Coordenadas2D[] coordenadas) {

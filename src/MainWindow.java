@@ -1,5 +1,7 @@
 import animation.*;
 import animation.scenes.EarthRotation;
+import animation.scenes.AlienVivo;
+import animation.scenes.RocketArrival;
 import animation.scenes.RocketLaunch;
 
 import javax.swing.*;
@@ -10,6 +12,8 @@ public class MainWindow extends JFrame implements AnimationListener {
 
     protected Animation earth;
     protected Animation rocket;
+    protected Animation vivo;
+    protected Animation arrival;
 
     public MainWindow() {
         super("Transformaciones");
@@ -23,6 +27,12 @@ public class MainWindow extends JFrame implements AnimationListener {
         rocket = new RocketLaunch(getWidth(), getHeight(), this);
         rocket.addAnimationListener(this);
 
+        vivo = new AlienVivo(getWidth(), getHeight(), this);
+        vivo.addAnimationListener(this);
+
+        arrival = new RocketArrival(getWidth(), getHeight(), this);
+        arrival.addAnimationListener(this);
+
         this.setVisible(true);
     }
 
@@ -34,7 +44,8 @@ public class MainWindow extends JFrame implements AnimationListener {
 
     @Override
     public void paint(Graphics g) {
-        startAnimation(earth);
+        //startAnimation(earth);
+        startAnimation(vivo);
     }
 
     public static void main(String[] args) {
@@ -52,6 +63,11 @@ public class MainWindow extends JFrame implements AnimationListener {
             rocket.setFrameAsBackground(lastFrame);
             startAnimation(rocket);
         } else if(sender.equals(rocket)) {
+            startAnimation(vivo);
+        } else if(sender.equals(vivo)) {
+            arrival.setFrameAsBackground(lastFrame);
+            startAnimation(arrival);
+        } else if(sender.equals(arrival)) {
             System.out.println("Finalizado");
         }
     }

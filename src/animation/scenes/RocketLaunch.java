@@ -13,24 +13,13 @@ import java.awt.image.ImageObserver;
 
 public class RocketLaunch extends Animation {
 
-    protected static final double DEG_TO_RAD = Math.PI / 180;
-
     public RocketLaunch(int width, int height, ImageObserver observer) {
         super(width, height, observer);
 
-        setDelay(50);
+        setDelay(30);
         setOrigin(new Coordenadas2D(width/2, height/2));
 
-        setupBackground();
         setupForeground();
-    }
-
-    protected void setupBackground() {
-
-    }
-
-    protected Coordenadas2D polarToRect(double radius, double deg) {
-        return new Coordenadas2D(radius * Math.cos(deg * DEG_TO_RAD), radius * Math.sin(deg * DEG_TO_RAD));
     }
 
     protected void setupForeground() {
@@ -71,7 +60,7 @@ public class RocketLaunch extends Animation {
         }
 
         for(int i = 0; i < 50; i++) {
-            Coordenadas2D delta = polarToRect(2, 240 - i);
+            Coordenadas2D delta = LandscapeBuilder.polarToRect(2, 240 - i);
             timer.addOperation(new MatrizTraslacion(delta.getX(), delta.getY()));
             timer.addOperation(new MatrizRotacion(2, true));
             timer.addOperation(new MatrizEscalado(1.02));

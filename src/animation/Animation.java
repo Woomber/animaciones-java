@@ -37,6 +37,8 @@ public class Animation implements PaintListener {
         backgroundBuffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         drawableBuffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
+        foregroundBuffer.createGraphics();
+        backgroundBuffer.createGraphics();
         drawableBuffer.createGraphics();
 
         foreground = new Dibujante(foregroundBuffer, observer);
@@ -91,7 +93,6 @@ public class Animation implements PaintListener {
     }
 
     public void setFrameAsBackground(BufferedImage image) {
-        this.backgroundBuffer.createGraphics();
         this.backgroundBuffer.getGraphics().drawImage(image, 0, 0, observer);
     }
 
