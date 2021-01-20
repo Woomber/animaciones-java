@@ -44,8 +44,8 @@ public class MainWindow extends JFrame implements AnimationListener {
 
     @Override
     public void paint(Graphics g) {
-        startAnimation(earth);
-        //startAnimation(vivo);
+        //startAnimation(earth);
+        startAnimation(vivo);
     }
 
     public static void main(String[] args) {
