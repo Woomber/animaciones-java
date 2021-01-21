@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class MainWindow extends JFrame implements AnimationListener {
 
+    protected Animation dark;
     protected Animation earth;
     protected Animation rocket;
     protected Animation vivo;
@@ -19,6 +20,15 @@ public class MainWindow extends JFrame implements AnimationListener {
         this.setSize(800, 600);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setupAnimations();
+
+        this.setVisible(true);
+    }
+
+    protected void setupAnimations() {
+        dark = new DarkScreen(getWidth(), getHeight(), this);
+        dark.addAnimationListener(this);
 
         earth = new EarthRotation(getWidth(), getHeight(), this);
         earth.addAnimationListener(this);
@@ -37,8 +47,6 @@ public class MainWindow extends JFrame implements AnimationListener {
 
         laser = new Laser(getWidth(), getHeight(), this);
         laser.addAnimationListener(this);
-
-        this.setVisible(true);
     }
 
     protected synchronized void startAnimation(Animation animation) {
@@ -49,8 +57,8 @@ public class MainWindow extends JFrame implements AnimationListener {
 
     @Override
     public void paint(Graphics g) {
-        //startAnimation(earth);
-        startAnimation(vivo);
+        startAnimation(dark);
+        //startAnimation(vivo);
     }
 
     public static void main(String[] args) {
@@ -64,7 +72,10 @@ public class MainWindow extends JFrame implements AnimationListener {
 
     @Override
     public void animationFinished(Object sender, BufferedImage lastFrame) {
-        if(sender.equals(earth)) {
+        if(sender.equals(dark)) {
+            startAnimation(earth);
+
+        } else if(sender.equals(earth)) {
             rocket.setFrameAsBackground(lastFrame);
             startAnimation(rocket);
 
