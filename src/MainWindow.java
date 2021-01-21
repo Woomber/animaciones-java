@@ -14,6 +14,7 @@ public class MainWindow extends JFrame implements AnimationListener {
     protected Animation arrival;
     protected Animation admiracion;
     protected Animation laser;
+    protected Animation attacked;
 
     public MainWindow() {
         super("Proyecto Animación 2D - Yael Chavoya");
@@ -47,6 +48,9 @@ public class MainWindow extends JFrame implements AnimationListener {
 
         laser = new Laser(getWidth(), getHeight(), this);
         laser.addAnimationListener(this);
+
+        attacked = new RocketAttacked(getWidth(), getHeight(), this);
+        attacked.addAnimationListener(this);
     }
 
     protected synchronized void startAnimation(Animation animation) {
@@ -58,7 +62,6 @@ public class MainWindow extends JFrame implements AnimationListener {
     @Override
     public void paint(Graphics g) {
         startAnimation(dark);
-        //startAnimation(vivo);
     }
 
     public static void main(String[] args) {
@@ -84,6 +87,7 @@ public class MainWindow extends JFrame implements AnimationListener {
 
         } else if(sender.equals(vivo)) {
             arrival.setFrameAsBackground(lastFrame);
+            attacked.setFrameAsBackground(lastFrame);
             startAnimation(arrival);
 
         } else if(sender.equals(arrival)) {
@@ -93,6 +97,12 @@ public class MainWindow extends JFrame implements AnimationListener {
 
         } else if(sender.equals(admiracion)) {
             startAnimation(laser);
+        } else if(sender.equals(laser)) {
+            startAnimation(attacked);
+        } else if(sender.equals(attacked)) {
+            System.out.println("Animación concluida");
+            setupAnimations();
+            startAnimation(dark);
         }
     }
 }
