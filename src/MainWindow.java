@@ -1,8 +1,5 @@
 import animation.*;
-import animation.scenes.EarthRotation;
-import animation.scenes.AlienVivo;
-import animation.scenes.RocketArrival;
-import animation.scenes.RocketLaunch;
+import animation.scenes.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +11,8 @@ public class MainWindow extends JFrame implements AnimationListener {
     protected Animation rocket;
     protected Animation vivo;
     protected Animation arrival;
+    protected Animation admiracion;
+    protected Animation laser;
 
     public MainWindow() {
         super("Proyecto Animación 2D - Yael Chavoya");
@@ -32,6 +31,12 @@ public class MainWindow extends JFrame implements AnimationListener {
 
         arrival = new RocketArrival(getWidth(), getHeight(), this);
         arrival.addAnimationListener(this);
+
+        admiracion = new Admiracion(getWidth(), getHeight(), this);
+        admiracion.addAnimationListener(this);
+
+        laser = new Laser(getWidth(), getHeight(), this);
+        laser.addAnimationListener(this);
 
         this.setVisible(true);
     }
@@ -62,13 +67,21 @@ public class MainWindow extends JFrame implements AnimationListener {
         if(sender.equals(earth)) {
             rocket.setFrameAsBackground(lastFrame);
             startAnimation(rocket);
+
         } else if(sender.equals(rocket)) {
             startAnimation(vivo);
+
         } else if(sender.equals(vivo)) {
             arrival.setFrameAsBackground(lastFrame);
             startAnimation(arrival);
+
         } else if(sender.equals(arrival)) {
-            System.out.println("Finalizado");
+            admiracion.setFrameAsBackground(lastFrame);
+            laser.setFrameAsBackground(lastFrame);
+            startAnimation(admiracion);
+
+        } else if(sender.equals(admiracion)) {
+            startAnimation(laser);
         }
     }
 }
