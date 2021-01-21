@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Transformaciones:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Transformaciones_jar</output-path>
+    <root id="archive" name="Transformaciones.jar">
+      <element id="module-output" name="Transformaciones" />
+    </root>
+  </artifact>
+</component>
