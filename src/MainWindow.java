@@ -17,7 +17,7 @@ public class MainWindow extends JFrame implements AnimationListener {
     protected Animation attacked;
 
     public MainWindow() {
-        super("Proyecto Animación 2D - Yael Chavoya");
+        super("Proyecto de Animación");
         this.setSize(800, 600);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
